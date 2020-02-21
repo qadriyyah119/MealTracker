@@ -101,6 +101,22 @@ class MealTableViewController: UITableViewController {
     }
     */
   
+  //MARK: Actions
+  
+  // I need to downcast the segue's source becauuse it's of type UIViewController and I need to work with a MealViewController
+  // Then assign the MealViewController instance to the constant `sourceViewController`
+  // Then checks if the meal property on sourceViewController is nil, if it's not, the value is assigned to the constant meal
+  @IBAction func unwindToMealList(sender: UIStoryboardSegue) {
+    if let sourceViewController = sender.source as? MealViewController, let meal = sourceViewController.meal {
+      
+      // Add a new meal
+      let newIndexPath = IndexPath(row: meals.count, section: 0)
+      
+      meals.append(meal)
+      tableView.insertRows(at: [newIndexPath], with: .automatic)
+    }
+  }
+  
   //MARK: Private Methods
   
   // helper method to load sample data into app
